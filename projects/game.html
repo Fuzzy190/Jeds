@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="./CR.JPG" type="image/icon type">
+    <title>Car Racing?</title>
+</head>
+<style>
+    *{
+        color: red;
+        font-family: sans-serif;
+    }
+    body{
+        margin-top: 10%;
+        background: black;
+    }
+    h1{
+        text-align: center;
+        font-size: 10vh;
+    }
+    h2{
+        text-align: center;
+        font-size: 2vh;
+        color: black;
+    }
+    p{
+        text-align: center;
+        font-weight: bolder;
+    }
+    #game{
+        position: relative;
+        height: 100px;
+        width: 1860px;
+        background: cyan;
+    }
+    #char{
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        background: red;
+        animation: char 500ms linear;
+    }
+    #chaser{
+        position: absolute;
+        top: 50px;
+        width: 50px;
+        height: 50px;
+        background: red;
+        animation: chaser 14.5s linear;
+    }
+    @keyframes chaser{
+        0%{left:0%;}
+        100%{left:1810px;}
+    }       
+</style>
+<body>
+    <h1>Car Racing?</h1>
+    <a href="/index.html" style="font-size: 3vh; font-weight: bolder;">Press to return Home</a>
+    <p>(Press LShift or RShift to start moving)</p>
+    <p>(No hold pressing you are technically cheating only tapping)</p>
+    <div id="game">
+        <div id="char"><h2>YOU</h2></div>
+        <div id="chaser"><h2>CPU</h2></div>
+    </div>
+    <audio autoplay>
+        <source src="./racingST.mp3" type="audio/mp3">
+    </audio>
+    <script id="script">
+        
+        //Player
+        var plyr = document.getElementById('char');
+        var move = 0;
+
+        //Enemy
+        const chaser = document.getElementById("chaser");
+        
+        //Enemy Code
+
+        chaser.addEventListener("animationend", () => {
+                alert("Enemy Won!");
+                location.reload();
+            });
+
+        //Player Code
+        function walk(e){
+            //Space Key
+            if(e.keyCode==16){
+                move +=15;
+                plyr.style.left = move + 'px';
+                if(move >= 1810){
+                    move +=2;
+                    chaser.style.animation = "0s";
+                    alert("You Won!");     
+                    location.reload();
+                }
+            }
+        }
+        document.onkeydown = walk;
+
+    </script>
+</body>
+</html>
